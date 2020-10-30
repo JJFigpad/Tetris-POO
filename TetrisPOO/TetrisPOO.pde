@@ -22,6 +22,9 @@ void keyPressed() {//Si se oprime una tecla
     } else if (keyCode == DOWN) {//Si la flecha es la flecha inferior
       
     }else if (keyCode == RIGHT) {//Si la flecha es la flecha a la derecha
+      myTetro.move(1,0);
+    }else if (keyCode == LEFT) {//Si la flecha es la flecha a la derecha
+      myTetro.move(-1,0);
     }
   }
 }

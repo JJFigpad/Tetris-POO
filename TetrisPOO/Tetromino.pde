@@ -1,8 +1,8 @@
 //Clase tetromino
 class Piece{
   color c=color(50,100,100);
-  float xpos=width/2;
-  float ypos=height/2;
+  float xpos=0;
+  float ypos=0;
   String[]Tetro = new String [4];
 
   //Constructor
@@ -18,7 +18,7 @@ class Piece{
     for(int i=0;i<4;i++){
       for(int j=0; j<4;j++){
         if (Tetro[i].charAt(j)=='1'){
-          rect(i*width/8,j*height/8,width/8,height/8);
+          rect((i+xpos)*width/8,(j+ypos)*height/8,width/8,height/8);
         }
       }
     }
@@ -35,6 +35,10 @@ class Piece{
     }
     Tetro=reverse(rotated);
     println(Tetro);
+  }
+  void move(int a, int b){
+    xpos +=a;
+    ypos +=b;
   }
 
 }
