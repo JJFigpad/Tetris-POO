@@ -14,3 +14,14 @@ void draw(){
   //Call methods
   myTetro.display();
 }
+
+void keyPressed() {//Si se oprime una tecla
+  if (key == CODED) {
+    if (keyCode == UP) {//Si la tecla es la flecha superior
+      myTetro.rotate();
+    } else if (keyCode == DOWN) {//Si la flecha es la flecha inferior
+      
+    }else if (keyCode == RIGHT) {//Si la flecha es la flecha a la derecha
+    }
+  }
+}

@@ -18,11 +18,23 @@ class Piece{
     for(int i=0;i<4;i++){
       for(int j=0; j<4;j++){
         if (Tetro[i].charAt(j)=='1'){
-          rect(i*width/4,j*height/4,width/4,height/4);
+          rect(i*width/8,j*height/8,width/8,height/8);
         }
       }
     }
   }
-
+  void rotate (){
+    println(Tetro);
+    char []a= new char[4];
+    String []rotated= new String[4];
+    for(int i=0;i<4;i++){
+      for(int j=0; j<4;j++){
+        a[j]=Tetro[j].charAt(i);
+      }
+      rotated[i]= new String(a);
+    }
+    Tetro=reverse(rotated);
+    println(Tetro);
+  }
 
 }
