@@ -16,15 +16,15 @@ class Piece{
   void display(){
     fill(c);
     for(int i=0;i<4;i++){
+      println(i+xpos);
       for(int j=0; j<4;j++){
         if (Tetro[i].charAt(j)=='1'){
-          rect((i+xpos)*width/8,(j+ypos)*height/8,width/8,height/8);
+          rect((i+xpos)*(width-hspace-vspace)/COLS+vspace, (j+ypos)*(height-2*vspace)/ROWS+vspace, (width-hspace-vspace)/COLS, (height-2*vspace)/ROWS);
         }
       }
     }
   }
   void rotate (){
-    println(Tetro);
     char []a= new char[4];
     String []rotated= new String[4];
     for(int i=0;i<4;i++){
@@ -34,7 +34,6 @@ class Piece{
       rotated[i]= new String(a);
     }
     Tetro=reverse(rotated);
-    println(Tetro);
   }
   void move(int a, int b){
     xpos +=a;
