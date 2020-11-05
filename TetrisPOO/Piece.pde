@@ -1,4 +1,5 @@
 //Clase tetromino
+//Renombrar pestaña a tetromino
 class Piece{
   color c=color(50,100,100);
   float xpos=0;
@@ -7,10 +8,12 @@ class Piece{
 
   //Constructor
   Piece(){
+    //si n=1
     Tetro[0]="0000";
     Tetro[1]="0000";
     Tetro[2]="0011";
     Tetro[3]="0011";
+    // si n=2
   }
 
   void display(){
@@ -19,7 +22,7 @@ class Piece{
       println(i+xpos);
       for(int j=0; j<4;j++){
         if (Tetro[i].charAt(j)=='1'){
-          rect((i+xpos)*(width-hspace-vspace)/COLS+vspace, (j+ypos)*(height-2*vspace)/ROWS+vspace, (width-hspace-vspace)/COLS, (height-2*vspace)/ROWS);
+          rect((i+xpos)*width/COLS,(j+ypos)*height/ROWS,width/COLS,height/ROWS);
         }
       }
     }

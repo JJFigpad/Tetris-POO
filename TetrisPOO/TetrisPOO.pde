@@ -18,11 +18,6 @@ void draw(){
   
   background(255);
   for(int j=0; j<=COLS;j++){
-    line(j*(width-vspace-hspace)/COLS+vspace, vspace, j*(width-vspace-hspace)/COLS+vspace, height-vspace);
-  }
-  for(int i=0;i<=ROWS;i++){
-    line(vspace,i*(height-2*vspace)/ROWS+vspace, width-hspace, i*(height-2*vspace)/ROWS+vspace); 
-  }
   //Call methods
   myTetro.display();
   if(time*1000<millis()){
