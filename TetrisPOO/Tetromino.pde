@@ -41,5 +41,4 @@ class Piece{
     ypos +=b;
   }
 
-
 }

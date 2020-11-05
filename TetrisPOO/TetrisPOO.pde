@@ -2,7 +2,6 @@
 
 //Declarar objeto
 Piece myTetro;
-int time=0;
 
 void setup(){
   size(400,400);
@@ -14,12 +13,6 @@ void draw(){
   background(255);
   //Call methods
   myTetro.display();
-  if(time*1000<millis()){
-    time++;
-    myTetro.move(0,1);
-  }
-  
-  
 }
 
 void keyPressed() {//Si se oprime una tecla
