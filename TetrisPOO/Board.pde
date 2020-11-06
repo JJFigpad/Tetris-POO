@@ -9,7 +9,7 @@ class Board {
       Tablero[i]="1";
       for(int j=0;j<cols;j++){
         Tablero[i]+="0";
-      } 
+      }
       Tablero[i]+="1";
     }
     Tablero[rows]="";
@@ -17,10 +17,30 @@ class Board {
       Tablero[rows]+="1";
     }
   }
-  
-  void print(){
+
+  void print1(){
     for(int i=0;i<rows+1;i++){
       println(Tablero[i]);
     }
+  }
+  boolean collision(String[] Tetro, int xpos, int ypos){
+    //print1();
+    print(Tetro);
+    for(int i=0;i<4;i++){
+      print("\n");
+      for(int j=0;j<4;j++){
+
+        print(" ",Tetro[j].charAt(i));
+        if (Tetro[j].charAt(i)=='1'){
+          print(Tablero[i+ypos].charAt(j+xpos+1));
+          if(Tablero[i+ypos].charAt(j+xpos+1)=='1'){
+            print("\n no \n");
+            return false;
+          }
+        }
+      }
+    }
+    print("\n Yas");
+    return true;
   }
 }

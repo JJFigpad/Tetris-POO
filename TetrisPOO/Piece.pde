@@ -1,7 +1,7 @@
 class Piece{
   color c=color(50,100,100);
-  float xpos=0;
-  float ypos=0;
+  int xpos=0;
+  int ypos=0;
   String[]Tetro = new String [4];
 
   //Constructor
@@ -48,7 +48,7 @@ class Piece{
       Tetro[2]="0000";
       Tetro[3]="0000";
     }
-   
+
 
   }
 
@@ -76,9 +76,15 @@ class Piece{
     Tetro=reverse(rotated);
     println(Tetro);
   }
-  void move(int a, int b){
-    xpos +=a;
-    ypos +=b;
+  void move(Board myBoard,int a, int b){
+    if (myBoard.collision(Tetro,xpos+a,ypos+b)==true){
+      println("\n \n");
+      xpos +=a;
+      ypos +=b;
+    }else if(myBoard.collision(Tetro,xpos+a,ypos+b)==false && (a==0 && b==1)){
+      print("pasar info");
+    }
+
   }
 
 
