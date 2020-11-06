@@ -4,7 +4,7 @@ import java.util.Arrays;
 Piece myTetro;
 Board myBoard;
 int time=0;
-int COLS=4,ROWS=5;
+int COLS=10,ROWS=15;
 int nTetro=0;
 int hspace, h2space, vspace;
 
@@ -19,19 +19,12 @@ void setup(){
 }
 
 void draw(){
-  background(155);
-  for (int i=0; i<=COLS;i++){
-    line(i*(width-hspace-h2space)/COLS+hspace,vspace,
-         i*( width-hspace-h2space)/COLS+hspace,height-vspace);
-  }
-  for (int i=0; i<=ROWS;i++){
-    line(hspace,i*(height-2*vspace)/ROWS+vspace,
-         width-h2space,i*(height-2*vspace)/ROWS+vspace);
-  }
+
+  myBoard.display();
   myTetro.display();
   if(time*1000<millis()){
     time++;
-    myTetro.move(myBoard,0,1);
+    myTetro.fall(myBoard);
   }
 
 
