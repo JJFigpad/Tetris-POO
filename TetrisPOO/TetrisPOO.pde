@@ -4,7 +4,7 @@ import java.util.Arrays;
 Piece myTetro;
 Board myBoard;
 int time=0;
-int COLS=10,ROWS=15;
+int COLS=5,ROWS=15;
 int nTetro=0;
 int hspace, h2space, vspace;
 
@@ -35,8 +35,9 @@ void keyPressed() {//Si se oprime una tecla
     if (keyCode == UP) {//Si la tecla es la flecha superior
       myTetro.rotate();
     } else if (keyCode == DOWN) {//Si la flecha es la flecha inferior
-      nTetro=int(random(0,6));
-      myTetro= new Piece(nTetro);
+      while(myBoard.collision(myTetro.Tetro,myTetro.xpos,myTetro.ypos+1)==false){
+        myTetro.fall(myBoard);
+      }
     }else if (keyCode == RIGHT) {//Si la flecha es la flecha a la derecha
       myTetro.move(myBoard,1,0);
     }else if (keyCode == LEFT) {//Si la flecha es la flecha a la derecha

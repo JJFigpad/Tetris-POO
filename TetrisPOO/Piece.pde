@@ -75,18 +75,21 @@ class Piece{
     Tetro=reverse(rotated);
   }
   void move(Board myboard, int a, int b){
-    if (myboard.collision(Tetro,xpos+a,ypos+b)==true){
+    if (myboard.collision(Tetro,xpos+a,ypos+b)==false){
       xpos +=a;
       ypos +=b;
     }
   }
   void fall(Board myboard){
-    if (myboard.collision(Tetro,xpos,ypos+1)==true){
+    if (myboard.collision(Tetro,xpos,ypos+1)==false){
       xpos +=0;
       ypos +=1;
     }else{
+      print("^ \n");
       myBoard.newTablero(Tetro,xpos,ypos);
+      print("^ \n");
       myBoard.print1();
+      print("\n");
       nTetro=int(random(0,6));
       myTetro=new Piece(nTetro);
     }

@@ -47,12 +47,12 @@ class Board {
       for(int j=0;j<4;j++){
         if (Tetro[j].charAt(i)=='1'){
           if(Tablero[i+ypos].charAt(j+xpos+1)=='1'){
-            return false;
+            return true;
           }
         }
       }
     }
-    return true;
+    return false;
   }
   void newTablero(String[] Tetro, int xpos, int ypos){
     char[] a;
@@ -70,6 +70,45 @@ class Board {
       Tablero[i+ypos]= b.toString();
     }
 
+    for (int j=0;j<rows;j++){
+      if (completeRow(j)){
+        Tablero=deleteRow(j);
+      }
+    }
+
+  }
+  boolean completeRow(int j){
+    for (int i=0;i<cols;i++){
+      if(Tablero[j].charAt(i+1)=='0'){
+        return false;
+      }
+    }
+    return true;
+  }
+  String[] deleteRow(int j){
+    String[] a=new String[rows+1];
+    int counter=1;//counter<rows+1
+    println("j=",j);
+    for (int i=1;i<rows+1;i++){
+      println(i,rows-i,counter,rows-counter);
+      if(rows-counter==j){counter++;}
+      if(counter>=rows+1){continue;}
+      else{
+        a[rows-i]=Tablero[rows-counter];
+      }
+      println(i,rows-i,counter,rows-counter);
+      counter++;
+    }
+
+    a[0]="1";
+    a[rows]="1";
+    for (int k=0;k<cols;k++){
+      a[0]+="0";
+      a[rows]+="1";
+    }
+    a[0]+="1";
+    a[rows]+="1";
+    return a;
   }
 
 
