@@ -13,7 +13,7 @@ void setup(){
   hspace=50;
   h2space=width/2;
   vspace=50;
-  myTetro = new Piece(nTetro);
+  myTetro = new Piece(int(random(0,6)));
   myBoard = new Board(ROWS,COLS);
   myBoard.print1();
 }
@@ -24,7 +24,7 @@ void draw(){
   myTetro.display();
   if(time*1000<millis()){
     time++;
-    myTetro.fall(myBoard);
+    myTetro.fall(myTetro,myBoard);
   }
 
 
@@ -35,13 +35,13 @@ void keyPressed() {//Si se oprime una tecla
     if (keyCode == UP) {//Si la tecla es la flecha superior
       myTetro.rotate();
     } else if (keyCode == DOWN) {//Si la flecha es la flecha inferior
-      while(myBoard.collision(myTetro.Tetro,myTetro.xpos,myTetro.ypos+1)==false){
-        myTetro.fall(myBoard);
+      while(myBoard.collision(myTetro,0,1)==false){
+        myTetro.fall(myTetro,myBoard);
       }
     }else if (keyCode == RIGHT) {//Si la flecha es la flecha a la derecha
-      myTetro.move(myBoard,1,0);
+      myTetro.move(myTetro,myBoard,1,0);
     }else if (keyCode == LEFT) {//Si la flecha es la flecha a la derecha
-      myTetro.move(myBoard,-1,0);
+      myTetro.move(myTetro,myBoard,-1,0);
     }
   }
 }
