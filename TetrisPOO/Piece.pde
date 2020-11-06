@@ -2,10 +2,12 @@ class Piece{
   color c=color(50,100,100);
   int xpos=0;
   int ypos=0;
+  int n;
   String[]Tetro = new String [4];
 
   //Constructor
-  Piece(int n){
+  Piece(int n1){
+    n=n1;
     if (n==0){
       Tetro[0]="1100";
       Tetro[1]="1100";
@@ -74,27 +76,23 @@ class Piece{
     }
     Tetro=reverse(rotated);
   }
-  void move(Board myboard, int a, int b){
-    if (myboard.collision(Tetro,xpos+a,ypos+b)==false){
-      xpos +=a;
-      ypos +=b;
+    void move(Piece piece,Board myboard, int movX, int movY){
+    if (myboard.collision(piece,movX,movY)==false){
+      xpos +=movX;
+      ypos +=movY;
     }
   }
-  void fall(Board myboard){
-    if (myboard.collision(Tetro,xpos,ypos+1)==false){
+
+  void fall(Piece piece,Board myboard){
+    if (myboard.collision(piece,0,1)==false){
       xpos +=0;
       ypos +=1;
     }else{
-      print("^ \n");
-      myBoard.newTablero(Tetro,xpos,ypos);
-      print("^ \n");
+      myBoard.newTablero(piece);
       myBoard.print1();
-      print("\n");
-      nTetro=int(random(0,6));
-      myTetro=new Piece(nTetro);
+      myTetro= new Piece(int(random(0,6)));
+      piece = new Piece(int(random(0,6)));
+      print(piece.Tetro[0]);
     }
-
   }
-
-
 }
