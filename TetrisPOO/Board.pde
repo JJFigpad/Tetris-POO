@@ -27,10 +27,10 @@ class Board {
       line(hspace,i*(height-2*vspace)/ROWS+vspace,
            width-h2space,i*(height-2*vspace)/ROWS+vspace);
     }
-    fill(100,100,200);
     for(int i=0;i<rows;i++){
       for(int j=0; j<cols;j++){
         if (Tablero[i].charAt(j+1)!='0'){
+          fill(colors[ Character.getNumericValue(Tablero[i].charAt(j+1) )]);
           rect(j*(width-hspace-h2space)/COLS+hspace,i*(height-2*vspace)/ROWS+vspace,
                (width-hspace-h2space)/COLS,(height-2*vspace)/ROWS);
         }
@@ -64,7 +64,7 @@ class Board {
       for(int j=0;j<4;j++){
         if (piece.Tetro[j].charAt(i)!='0'){
           if(a[j+piece.xpos+1]!='0'){print("Error");}
-          a[j+piece.xpos+1]='1';
+          a[j+piece.xpos+1]=char(piece.n+'0');
         }
       }
       for(char c:a){b.append(c);}

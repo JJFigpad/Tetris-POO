@@ -7,13 +7,22 @@ int time=0;
 int COLS=5,ROWS=15;
 int nTetro=0;
 int hspace, h2space, vspace;
+color[] colors=new color[8];
+
 
 void setup(){
   size(400,400);
+  colors[1]=#F786FF;
+  colors[2]=#FF86E3;
+  colors[3]=#8D86FF;
+  colors[4]=#86FCFF;
+  colors[5]=#86FFAB;
+  colors[6]=#E2FF86;
+  colors[7]=#FFCB86;
   hspace=50;
   h2space=width/2;
   vspace=50;
-  myTetro = new Piece(int(random(0,6)));
+  myTetro = new Piece(int(random(1,8)));
   myBoard = new Board(ROWS,COLS);
   myBoard.print1();
 }

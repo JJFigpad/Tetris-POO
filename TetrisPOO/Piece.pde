@@ -8,46 +8,46 @@ class Piece{
   //Constructor
   Piece(int n1){
     n=n1;
-    if (n==0){
-      Tetro[0]="1100";
-      Tetro[1]="1100";
-      Tetro[2]="0000";
-      Tetro[3]="0000";
-    }
     if (n==1){
-      Tetro[0]="1111";
-      Tetro[1]="0000";
-      Tetro[2]="0000";
+      Tetro[0]="0000";
+      Tetro[1]="0110";
+      Tetro[2]="0110";
       Tetro[3]="0000";
     }
     if (n==2){
-      Tetro[0]="1110";
-      Tetro[1]="1000";
+      Tetro[0]="0000";
+      Tetro[1]="2222";
       Tetro[2]="0000";
       Tetro[3]="0000";
     }
     if (n==3){
-      Tetro[0]="1110";
-      Tetro[1]="0010";
-      Tetro[2]="0000";
+      Tetro[0]="0000";
+      Tetro[1]="0300";
+      Tetro[2]="0333";
       Tetro[3]="0000";
     }
     if (n==4){
-      Tetro[0]="1100";
-      Tetro[1]="0110";
-      Tetro[2]="0000";
+      Tetro[0]="0000";
+      Tetro[1]="0040";
+      Tetro[2]="4440";
       Tetro[3]="0000";
     }
     if (n==5){
-      Tetro[0]="0110";
-      Tetro[1]="1100";
-      Tetro[2]="0000";
+      Tetro[0]="0000";
+      Tetro[1]="0550";
+      Tetro[2]="5500";
       Tetro[3]="0000";
     }
     if (n==6){
-      Tetro[0]="1111";
-      Tetro[1]="0000";
-      Tetro[2]="0000";
+      Tetro[0]="0000";
+      Tetro[1]="6600";
+      Tetro[2]="0660";
+      Tetro[3]="0000";
+    }
+    if (n==7){
+      Tetro[0]="0700";
+      Tetro[1]="0770";
+      Tetro[2]="0700";
       Tetro[3]="0000";
     }
 
@@ -55,10 +55,10 @@ class Piece{
   }
 
   void display(){
-    fill(c);
+    fill(colors[n]);
     for(int i=0;i<4;i++){
       for(int j=0; j<4;j++){
-        if (Tetro[i].charAt(j)=='1'){
+        if (Tetro[i].charAt(j)!='0'){
           rect((i+xpos)*(width-hspace-h2space)/COLS+hspace,(j+ypos)*(height-2*vspace)/ROWS+vspace,
                (width-hspace-h2space)/COLS,(height-2*vspace)/ROWS);
         }
@@ -90,8 +90,8 @@ class Piece{
     }else{
       myBoard.newTablero(piece);
       myBoard.print1();
-      myTetro= new Piece(int(random(0,6)));
-      piece = new Piece(int(random(0,6)));
+      myTetro= new Piece(int(random(1,7)));
+      piece = new Piece(int(random(1,7)));
       print(piece.Tetro[0]);
     }
   }
