@@ -2,18 +2,20 @@
 
 //Declarar objeto
 Piece myTetro;
+Board myBoard;
 int time=0;
-int COLS=10,ROWS=12;
+int COLS=4,ROWS=5;
 int nTetro=0;
 int hspace, h2space, vspace;
 
 void setup(){
   size(400,400);
-  //Inicializar objeto
   hspace=10;
   h2space=width/2;
   vspace=10;
   myTetro = new Piece(nTetro);
+  myBoard = new Board(ROWS,COLS);
+  myBoard.print();
 }
 
 void draw(){
