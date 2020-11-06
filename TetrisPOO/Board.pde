@@ -30,7 +30,7 @@ class Board {
     fill(100,100,200);
     for(int i=0;i<rows;i++){
       for(int j=0; j<cols;j++){
-        if (Tablero[i].charAt(j+1)=='1'){
+        if (Tablero[i].charAt(j+1)!='0'){
           rect(j*(width-hspace-h2space)/COLS+hspace,i*(height-2*vspace)/ROWS+vspace,
                (width-hspace-h2space)/COLS,(height-2*vspace)/ROWS);
         }
@@ -42,11 +42,11 @@ class Board {
       println(Tablero[i]);
     }
   }
-  boolean collision(String[] Tetro, int xpos, int ypos){
-    for(int i=0;i<4;i++){
+  boolean collision(Piece piece,int movX,int movY){
+  for(int i=0;i<4;i++){
       for(int j=0;j<4;j++){
-        if (Tetro[j].charAt(i)=='1'){
-          if(Tablero[i+ypos].charAt(j+xpos+1)=='1'){
+        if (piece.Tetro[j].charAt(i)!='0'){
+          if(Tablero[i+piece.ypos+movY].charAt(j+piece.xpos+1+movX)!='0'){
             return true;
           }
         }
@@ -54,20 +54,21 @@ class Board {
     }
     return false;
   }
-  void newTablero(String[] Tetro, int xpos, int ypos){
+
+  void newTablero(Piece piece){
     char[] a;
     StringBuilder b;
-    for(int i=0;i<4 && i+ypos<rows;i++){
+    for(int i=0;i<4 && i+piece.ypos<rows;i++){
       b= new StringBuilder();
-      a=Tablero[i+ypos].toCharArray();
+      a=Tablero[i+piece.ypos].toCharArray();
       for(int j=0;j<4;j++){
-        if (Tetro[j].charAt(i)=='1'){
-          if(a[j+xpos+1]=='1'){print("Error");}
-          a[j+xpos+1]='1';
+        if (piece.Tetro[j].charAt(i)!='0'){
+          if(a[j+piece.xpos+1]!='0'){print("Error");}
+          a[j+piece.xpos+1]='1';
         }
       }
       for(char c:a){b.append(c);}
-      Tablero[i+ypos]= b.toString();
+      Tablero[i+piece.ypos]= b.toString();
     }
 
     for (int j=0;j<rows;j++){
@@ -110,7 +111,4 @@ class Board {
     a[rows]+="1";
     return a;
   }
-
-
-
 }
