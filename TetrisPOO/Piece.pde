@@ -64,7 +64,6 @@ class Piece{
     }
   }
   void rotate (){
-    println(Tetro);
     char []a= new char[4];
     String []rotated= new String[4];
     for(int i=0;i<4;i++){
@@ -74,15 +73,14 @@ class Piece{
       rotated[i]= new String(a);
     }
     Tetro=reverse(rotated);
-    println(Tetro);
   }
   void move(Board myBoard,int a, int b){
     if (myBoard.collision(Tetro,xpos+a,ypos+b)==true){
-      println("\n \n");
       xpos +=a;
       ypos +=b;
     }else if(myBoard.collision(Tetro,xpos+a,ypos+b)==false && (a==0 && b==1)){
-      print("pasar info");
+      myBoard.newTablero(Tetro,xpos,ypos);
+      myBoard.print1();
     }
 
   }

@@ -1,6 +1,6 @@
-//Driver
+import java.util.Arrays;
 
-//Declarar objeto
+//Driver
 Piece myTetro;
 Board myBoard;
 int time=0;

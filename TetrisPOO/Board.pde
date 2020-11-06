@@ -24,23 +24,35 @@ class Board {
     }
   }
   boolean collision(String[] Tetro, int xpos, int ypos){
-    //print1();
-    print(Tetro);
     for(int i=0;i<4;i++){
-      print("\n");
       for(int j=0;j<4;j++){
-
-        print(" ",Tetro[j].charAt(i));
         if (Tetro[j].charAt(i)=='1'){
-          print(Tablero[i+ypos].charAt(j+xpos+1));
           if(Tablero[i+ypos].charAt(j+xpos+1)=='1'){
-            print("\n no \n");
             return false;
           }
         }
       }
     }
-    print("\n Yas");
     return true;
   }
+  void newTablero(String[] Tetro, int xpos, int ypos){
+    char[] a;
+    StringBuilder b;
+    for(int i=0;i<4 && i+ypos<rows;i++){
+      b= new StringBuilder();
+      a=Tablero[i+ypos].toCharArray();
+      for(int j=0;j<4;j++){
+        if (Tetro[j].charAt(i)=='1'){
+          if(a[j+xpos+1]=='1'){print("Error");}
+          a[j+xpos+1]='1';
+        }
+      }
+      for(char c:a){b.append(c);}
+      Tablero[i+ypos]= b.toString();
+    }
+
+  }
+
+
+
 }
