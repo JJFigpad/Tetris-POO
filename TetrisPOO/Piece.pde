@@ -1,11 +1,12 @@
 class Piece{
   color c=color(50,100,100);
   int xpos=0;
-  int ypos=-4;
+  int ypos=0;
   int n;
   String[]Tetro = new String [4];
 
   //Constructor
+
   Piece(int n1){
     n=n1;
     if (n==1){
@@ -50,10 +51,17 @@ class Piece{
       Tetro[2]="0700";
       Tetro[3]="0000";
     }
-
-
   }
-
+  void display(int xpos1,int ypos1,int side){
+    fill(colors[n]);
+    for(int i=0;i<4;i++){
+      for(int j=0; j<4;j++){
+        if (Tetro[i].charAt(j)!='0'){
+          rect(i*side/16+xpos1,j*side/16+ypos1,side/16,side/16);
+        }
+      }
+    }
+  }
   void display(){
     fill(colors[n]);
     for(int i=0;i<4;i++){
@@ -86,15 +94,17 @@ class Piece{
   }
 
   void fall(Piece piece,Board myboard){
+
     if (myboard.collisionMove(piece,0,1)==false){
       xpos +=0;
       ypos +=1;
     }else{
       myBoard.newTablero(piece);
       myBoard.print1();
-      myTetro= new Piece(int(random(1,7)));
-      piece = new Piece(int(random(1,7)));
-      print(piece.Tetro[0]);
+      myTetro= new Piece(nextN);
+      nextN=int(random(1,8));
+      nextTetro= new Piece(nextN);
+      //piece = new Piece(nextN);
     }
   }
 }

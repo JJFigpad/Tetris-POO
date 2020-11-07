@@ -22,7 +22,7 @@ class Board {
   void display(){
     fill(colorTablero);
     rect(hspace,vspace,width-hspace-h2space,height-2*vspace);
-    stroke(255-alpha(colourTablero));
+    stroke(255-alpha(colorTablero));
     for (int i=0; i<=COLS;i++){
       line(i*(width-hspace-h2space)/COLS+hspace,vspace,
            i*( width-hspace-h2space)/COLS+hspace,height-vspace);
@@ -81,7 +81,7 @@ class Board {
     StringBuilder b;
     for(int i=0;i<4 && i+piece.ypos<rows+extra;i++){
       b= new StringBuilder();
-      if (i+piece.ypos<0){}
+      if (i+piece.ypos<extra-1){page=2;}
       a=Tablero[i+piece.ypos].toCharArray();
       for(int j=0;j<4;j++){
         if (piece.Tetro[j].charAt(i)!='0'){
@@ -95,12 +95,14 @@ class Board {
       for(char c:a){b.append(c);}
       Tablero[i+piece.ypos]= b.toString();
     }
-
+    int counterRows=0;
     for (int j=0;j<rows+extra;j++){
       if (completeRow(j)){
         Tablero=deleteRow(j);
+        counterRows++;
       }
     }
+    points+=pow(difPoints,counterRows);
 
   }
   boolean completeRow(int j){
