@@ -6,7 +6,8 @@ Piece myTetro;
 Board myBoard;
 Area area;
 int time=0;
-int COLS=5,ROWS=15;
+int extra=4;
+int COLS=5,ROWS=10;
 int nTetro=0;
 int page=1;
 int hspace, h2space, vspace;
@@ -40,9 +41,9 @@ void draw(){
 void keyPressed() {//Si se oprime una tecla
   if (key == CODED) {
     if (keyCode == UP) {//Si la tecla es la flecha superior
-      myTetro.rotate();
+      myTetro.rotate(myTetro);
     } else if (keyCode == DOWN) {//Si la flecha es la flecha inferior
-      while(myBoard.collision(myTetro,0,1)==false){
+      while(myBoard.collisionMove(myTetro,0,1)==false){
         myTetro.fall(myTetro,myBoard);
       }
     }else if (keyCode == RIGHT) {//Si la flecha es la flecha a la derecha
@@ -72,9 +73,14 @@ void gamePage(){
   background(colorCanvas);
   myBoard.display(colorTablero);
   myTetro.display();
-  if(time*1000<millis()){
+  if(time*800<millis()){
     time++;
     myTetro.fall(myTetro,myBoard);
   }
 }
-void page2(){println("page2");}
+void page2(){background(colorCanvas);println("page2");}
+void gameOver(){
+  myBoard = new Board(ROWS,COLS);
+  myTetro = new Piece(int(random(1,7)));
+  page=2;
+}
