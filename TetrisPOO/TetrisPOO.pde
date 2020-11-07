@@ -40,9 +40,9 @@ void draw(){
 void keyPressed() {//Si se oprime una tecla
   if (key == CODED) {
     if (keyCode == UP) {//Si la tecla es la flecha superior
-      myTetro.rotate(myTetro);
+      myTetro.rotate();
     } else if (keyCode == DOWN) {//Si la flecha es la flecha inferior
-      while(myBoard.collisionMove(myTetro,0,1)==false){
+      while(myBoard.collision(myTetro,0,1)==false){
         myTetro.fall(myTetro,myBoard);
       }
     }else if (keyCode == RIGHT) {//Si la flecha es la flecha a la derecha
@@ -77,9 +77,4 @@ void gamePage(){
     myTetro.fall(myTetro,myBoard);
   }
 }
-void page2(){background(colorCanvas);println("page2");}
-void gameOver(){
-  myBoard = new Board(ROWS,COLS);
-  myTetro = new Piece(int(random(1,7)));
-  page=2;
-}
+void page2(){println("page2");}

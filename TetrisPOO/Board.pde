@@ -44,7 +44,7 @@ class Board {
       println(Tablero[i]);
     }
   }
-  boolean collisionMove(Piece piece,int movX,int movY){
+  boolean collision(Piece piece,int movX,int movY){
   for(int i=0;i<4;i++){
       for(int j=0;j<4;j++){
         if(piece.ypos<0){continue;}
@@ -57,20 +57,6 @@ class Board {
     }
     return false;
   }
-  boolean collisionRotate(Piece piece){
-    for(int i=0;i<4;i++){
-      for(int j=0;j<4;j++){
-        if(piece.ypos<0){continue;}
-        if (piece.Tetro[-i].charAt(-j)!='0'){
-          if(Tablero[i+piece.ypos].charAt(j+piece.xpos+1)!='0'){
-            return true;
-          }
-        }
-      }
-    }
-    return false;
-  }
-
 
   void newTablero(Piece piece){
     char[] a;
@@ -81,8 +67,9 @@ class Board {
       for(int j=0;j<4;j++){
         if (piece.Tetro[j].charAt(i)!='0'){
           if(a[j+piece.xpos+1]!='0'){
-            print("Game Over");
-            gameOver();
+            print("Error");
+            noLoop();
+            //Board(rows,cols);
           }
           a[j+piece.xpos+1]=char(piece.n+'0');
         }
