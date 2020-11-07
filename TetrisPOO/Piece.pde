@@ -65,26 +65,28 @@ class Piece{
       }
     }
   }
-  void rotate (){
-    char []a= new char[4];
-    String []rotated= new String[4];
-    for(int i=0;i<4;i++){
-      for(int j=0; j<4;j++){
-        a[j]=Tetro[j].charAt(i);
+  void rotate (Piece piece){
+    if(myBoard.collisionRotate(piece)==false){
+      char []a= new char[4];
+      String []rotated= new String[4];
+      for(int i=0;i<4;i++){
+        for(int j=0; j<4;j++){
+          a[j]=Tetro[j].charAt(i);
+        }
+        rotated[i]= new String(a);
       }
-      rotated[i]= new String(a);
+      Tetro=reverse(rotated);
     }
-    Tetro=reverse(rotated);
   }
     void move(Piece piece,Board myboard, int movX, int movY){
-    if (myboard.collision(piece,movX,movY)==false){
+    if (myboard.collisionMove(piece,movX,movY)==false){
       xpos +=movX;
       ypos +=movY;
     }
   }
 
   void fall(Piece piece,Board myboard){
-    if (myboard.collision(piece,0,1)==false){
+    if (myboard.collisionMove(piece,0,1)==false){
       xpos +=0;
       ypos +=1;
     }else{
