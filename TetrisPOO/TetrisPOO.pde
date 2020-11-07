@@ -1,17 +1,24 @@
 import java.util.Arrays;
+import java.awt.geom.Area;
 
 //Driver
 Piece myTetro;
 Board myBoard;
+Area area;
 int time=0;
 int COLS=5,ROWS=15;
 int nTetro=0;
+int page=1;
 int hspace, h2space, vspace;
+color colorTablero=0, colorCanvas=0;
 color[] colors=new color[8];
 
 
 void setup(){
   size(400,400);
+  hspace=50;
+  h2space=width/2;
+  vspace=50;
   colors[1]=#F786FF;
   colors[2]=#FF86E3;
   colors[3]=#8D86FF;
@@ -19,23 +26,14 @@ void setup(){
   colors[5]=#86FFAB;
   colors[6]=#E2FF86;
   colors[7]=#FFCB86;
-  hspace=50;
-  h2space=width/2;
-  vspace=50;
+  //Create area=canvas-tablero
   myTetro = new Piece(int(random(1,8)));
   myBoard = new Board(ROWS,COLS);
   myBoard.print1();
 }
 
 void draw(){
-
-  myBoard.display();
-  myTetro.display();
-  if(time*1000<millis()){
-    time++;
-    myTetro.fall(myTetro,myBoard);
-  }
-
+  pageSelector();
 
 }
 
@@ -54,3 +52,29 @@ void keyPressed() {//Si se oprime una tecla
     }
   }
 }
+
+void pageSelector(){
+  switch(page) {
+    case 0:
+      page0();
+      break;
+
+    case 1:
+      gamePage();
+      break;
+
+    case 2:
+      page2();
+  }
+}
+void page0(){}
+void gamePage(){
+  background(colorCanvas);
+  myBoard.display(colorTablero);
+  myTetro.display();
+  if(time*1000<millis()){
+    time++;
+    myTetro.fall(myTetro,myBoard);
+  }
+}
+void page2(){println("page2");}

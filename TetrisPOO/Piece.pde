@@ -1,7 +1,7 @@
 class Piece{
   color c=color(50,100,100);
   int xpos=0;
-  int ypos=0;
+  int ypos=-3;
   int n;
   String[]Tetro = new String [4];
 
@@ -58,7 +58,7 @@ class Piece{
     fill(colors[n]);
     for(int i=0;i<4;i++){
       for(int j=0; j<4;j++){
-        if (Tetro[i].charAt(j)!='0'){
+        if (Tetro[i].charAt(j)!='0'&& ypos+j>=0){
           rect((i+xpos)*(width-hspace-h2space)/COLS+hspace,(j+ypos)*(height-2*vspace)/ROWS+vspace,
                (width-hspace-h2space)/COLS,(height-2*vspace)/ROWS);
         }

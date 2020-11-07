@@ -17,8 +17,10 @@ class Board {
       Tablero[rows]+="1";
     }
   }
-  void display(){
-    background(155);
+  void display(int colourTablero){
+    fill(colourTablero);
+    rect(hspace,vspace,width-hspace-h2space,height-2*vspace);
+    stroke(255-alpha(colourTablero));
     for (int i=0; i<=COLS;i++){
       line(i*(width-hspace-h2space)/COLS+hspace,vspace,
            i*( width-hspace-h2space)/COLS+hspace,height-vspace);
@@ -45,6 +47,7 @@ class Board {
   boolean collision(Piece piece,int movX,int movY){
   for(int i=0;i<4;i++){
       for(int j=0;j<4;j++){
+        if(piece.ypos<0){continue;}
         if (piece.Tetro[j].charAt(i)!='0'){
           if(Tablero[i+piece.ypos+movY].charAt(j+piece.xpos+1+movX)!='0'){
             return true;
@@ -63,7 +66,11 @@ class Board {
       a=Tablero[i+piece.ypos].toCharArray();
       for(int j=0;j<4;j++){
         if (piece.Tetro[j].charAt(i)!='0'){
-          if(a[j+piece.xpos+1]!='0'){print("Error");}
+          if(a[j+piece.xpos+1]!='0'){
+            print("Error");
+            noLoop();
+            //Board(rows,cols);
+          }
           a[j+piece.xpos+1]=char(piece.n+'0');
         }
       }
