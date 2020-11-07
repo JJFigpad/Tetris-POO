@@ -71,16 +71,16 @@ void pageSelector(){
 void page0(){}
 void gamePage(){
   background(colorCanvas);
-  myBoard.display(colorTablero);
+  myBoard.display();
   myTetro.display();
   if(time*800<millis()){
     time++;
     myTetro.fall(myTetro,myBoard);
   }
 }
-void page2(){background(colorCanvas);println("page2");}
 void gameOver(){
-  myBoard = new Board(ROWS,COLS);
-  myTetro = new Piece(int(random(1,7)));
-  page=2;
+  background(colorCanvas);
+  myBoard.display();
+  println("page2");
+
 }

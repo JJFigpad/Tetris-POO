@@ -1,6 +1,7 @@
 class Board {
   String[]Tablero;
   int rows,cols;
+  int colorTablero=0;
 
   Board(int rows1,int cols1){
     rows=rows1;
@@ -18,8 +19,8 @@ class Board {
       Tablero[rows+extra]+="1";
     }
   }
-  void display(int colourTablero){
-    fill(colourTablero);
+  void display(){
+    fill(colorTablero);
     rect(hspace,vspace,width-hspace-h2space,height-2*vspace);
     stroke(255-alpha(colourTablero));
     for (int i=0; i<=COLS;i++){
@@ -48,9 +49,11 @@ class Board {
   boolean collisionMove(Piece piece,int movX,int movY){
   for(int i=0;i<4;i++){
       for(int j=0;j<4;j++){
+
         if(piece.ypos+movY+i<0){continue;}
         if (piece.Tetro[j].charAt(i)!='0'){
           if(Tablero[i+piece.ypos+movY].charAt(j+piece.xpos+1+movX)!='0'){
+            if(piece.ypos<=-extra){gameOver();}
             return true;
           }
         }
