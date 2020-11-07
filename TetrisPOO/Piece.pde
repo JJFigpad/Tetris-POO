@@ -52,12 +52,12 @@ class Piece{
       Tetro[3]="0000";
     }
   }
-  void display(int xpos1,int ypos1,int side){
+  void display(float xpos1, float ypos1,float side){
     fill(colors[n]);
     for(int i=0;i<4;i++){
       for(int j=0; j<4;j++){
         if (Tetro[i].charAt(j)!='0'){
-          rect(i*side/16+xpos1,j*side/16+ypos1,side/16,side/16);
+          rect(i*side/4+xpos1,j*side/4+ypos1,side/4,side/4);
         }
       }
     }

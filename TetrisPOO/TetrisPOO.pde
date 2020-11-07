@@ -10,7 +10,7 @@ int difPoints=100;
 int time=0, timeFrame=600,timeDiference=1;
 int extra=4;
 int COLS=10,ROWS=15;
-int page=1;
+int page=0;
 int hspace, h2space, vspace;
 color colorTablero=0, colorCanvas=0;
 color[] colors=new color[8];
@@ -28,15 +28,12 @@ void setup(){
   colors[5]=#86FFAB;
   colors[6]=#E2FF86;
   colors[7]=#FFCB86;
-  myTetro = new Piece(nextN);
-  nextTetro = new Piece(nextN);
-  myBoard = new Board(ROWS,COLS);
-  myBoard.print1();
+
 }
 
 void draw(){
   pageSelector();
-
+  if(time*timeFrame<millis()){ time++; }
 }
 
 void pageSelector(){
@@ -53,20 +50,36 @@ void pageSelector(){
       gameOver();
   }
 }
-void page0(){}
+void page0(){
+  print("page0");
+  background(0);
+  myTetro = new Piece(nextN);
+  nextTetro = new Piece(nextN);
+  myBoard = new Board(ROWS,COLS);
+  textAlign(CENTER);
+  textSize(62);
+  for(int i = 0, n = "Tetris".length() ; i < n ; i++) {
+    char ch = "Tetris".charAt(i);
+    fill(colors[i+1]);
+    text(ch,width/2+31*(i-n/2),height*3/4);
+  }
+}
 
 void gamePage(){
+  print("gamePage");
   background(colorCanvas);
   myBoard.display();
   myTetro.display();
-  nextTetro.display(width*5/8,vspace,width*5/8);
+  nextTetro.display(width*3/4-width*0.9/6,height/4,2*width*0.9/6);
   if(time*timeFrame<millis()){
     time++;
     if (timeFrame<500){timeDiference=0;}
     timeFrame-=timeDiference;
     myTetro.fall(myTetro,myBoard);
   }
-  //Texto puntos
+  textAlign(CENTER,CENTER);
+  textSize(30);
+  text("Points="+String.valueOf(points),width*3/4,height*3/4);
 }
 
 void gameOver(){
@@ -77,7 +90,11 @@ void gameOver(){
 }
 
 void keyPressed() {//Si se oprime una tecla
-  if (key == CODED) {
+  if (keyCode==ENTER){
+    page++;
+    if (page>2){page=0;}
+  }
+  else if (key == CODED) {
     if (keyCode == UP) {//Si la tecla es la flecha superior
       myTetro.rotate(myTetro);
     } else if (keyCode == DOWN) {//Si la flecha es la flecha inferior

@@ -102,8 +102,7 @@ class Board {
         counterRows++;
       }
     }
-    points+=pow(difPoints,counterRows);
-
+    if (counterRows!=0){points+=difPoints*pow(10,counterRows);}
   }
   boolean completeRow(int j){
     for (int i=0;i<cols;i++){
