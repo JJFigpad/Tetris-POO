@@ -9,7 +9,7 @@ boolean changeNextN= true;
 int nextN=int(random(1,8));
 int points=0;
 int difPoints=100;
-int time=0, timeFrame=600,timeDiference=1;
+int time=0, timeFrame=600,timeDiference=10;
 int extra=4;
 int COLS=10,ROWS=16;
 int page=0;
@@ -77,8 +77,6 @@ void gamePage(){
   nextTetro.display(width*3/4-width*0.9/6,height/4,2*height*0.9/6);
   if(timeFrame<time||myTetro.ypos<extra-2){
     time=0;
-    if (timeFrame<500){timeDiference=0;}
-    timeFrame-=timeDiference;
     myTetro.fall(myTetro,myBoard);
   }
   time+=15;
@@ -110,28 +108,43 @@ void gameOver(){
 
 void helpPage(){
   background(0);
-  int dif =height/13;
-  textSize(width/25);
-  text("CONTROLS",width/2,height/4);
+  float dif= height/20;
+  float start=height/7;
+  text("OBJECTIVE",width/2,start-dif/2);
+  textSize(width/55);
+  String a= "The goal of Tetris is to score as many points as possible by clearing horizontal lines of Blocks.";
+  text(a,width/2,start+dif);
+  a= "The player must rotate, move, and drop the falling Tetriminos inside the Matrix (playing field).";
+  text(a,width/2,start+dif*2);
+  a= "Lines are cleared when they are filled with Blocks and have no empty spaces.";
+  text(a,width/2,start+dif*3);
+  a= "As lines are cleared, the Tetriminos fall faster, making the game progressively more challenging.";
+  text(a,width/2,start+dif*4);
+  a="If the Blocks land above the top of the playing field, the game is over.";
   textSize(width/30);
-  text("<- OR ->",width/3.5,height/4+dif);
-  translate(width/3.5,height/4);
+
+  dif =height/17;
+  start=height/2.1;
+  text("CONTROLS",width/2,start-dif/2);
+  textSize(width/50);
+  text("<- OR ->",width/3.5,start+dif);
+  translate(width/3.5,start);
   rotate(PI/2);
   text("<-",dif*2,0);
   text("->",dif*3,0);
   rotate(-PI/2);
-  translate(-width/3.5,-height/4);
-  text("CTRL",width/3.5,height/4+dif*4);
-  text("ALT",width/3.5,height/4+dif*5);
+  translate(-width/3.5,-start);
+  text("CTRL",width/3.5,start+dif*4);
+  text("ALT",width/3.5,start+dif*5);
   textAlign(CORNER,CENTER);
-  text("TO MOVE HORIZONTALLY",width/2.5,height/4+dif);
-  text("TO ROTATE CLOCKWISE",width/2.5,height/4+dif*2);
-  text("TO GO ALL THE WAY DOWN",width/2.5,height/4+dif*3);
-  text("TO STOP",width/2.5,height/4+dif*4);
-  text("TO CONTINUE",width/2.5,height/4+dif*5);
+  text("TO MOVE HORIZONTALLY",width/2.5,start+dif);
+  text("TO ROTATE CLOCKWISE",width/2.5,start+dif*2);
+  text("TO GO ALL THE WAY DOWN",width/2.5,start+dif*3);
+  text("TO STOP",width/2.5,start+dif*4);
+  text("TO CONTINUE",width/2.5,start+dif*5);
   textSize(width/25);
   textAlign(CENTER,CENTER);
-  text("PRESS ENTER TO START",width/2,height*3/4);
+  text("PRESS ENTER TO START",width/2,start+dif*7);
 }
 void keyPressed() {//Si se oprime una tecla
   if (keyCode==ENTER && page!=1){

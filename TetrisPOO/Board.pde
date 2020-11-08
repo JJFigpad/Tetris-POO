@@ -31,9 +31,10 @@ class Board {
       line(hspace,i*(height-2*vspace)/ROWS+vspace,
            width/2-h2space,i*(height-2*vspace)/ROWS+vspace);
     }
-    for(int i=extra;i<rows+extra;i++){
+    for(int i=0;i<rows+extra;i++){
       for(int j=0; j<cols;j++){
         if (Tablero[i].charAt(j+1)!='0'){
+          if(i<extra){page=2;continue;}//Game Over
           fill(colors[ Character.getNumericValue(Tablero[i].charAt(j+1) )]);
           rect(j*(width/2-hspace-h2space)/COLS+hspace,(i-extra)*(height-2*vspace)/ROWS+vspace,
                (width/2-hspace-h2space)/COLS,(height-2*vspace)/ROWS);
@@ -53,7 +54,6 @@ class Board {
         if(piece.ypos+movY+i<0){continue;}
         if (piece.Tetro[j].charAt(i)!='0'){
           if(Tablero[i+piece.ypos+movY].charAt(j+piece.xpos+1+movX)!='0'){
-            if(piece.ypos<=-extra){gameOver();}
             return true;
           }
         }
@@ -103,7 +103,9 @@ class Board {
       }
     }
     if (counterRows!=0){points+=difPoints*pow(10,counterRows);}
+    if (timeFrame>500){timeFrame-=timeDiference;}
   }
+
   boolean completeRow(int j){
     for (int i=0;i<cols;i++){
       if(Tablero[j].charAt(i+1)=='0'){
