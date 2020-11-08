@@ -19,12 +19,12 @@ color[] colors=new color[8];
 
 
 void setup(){
-  size(600,800);
+  size(800,600);
   hspace=50;
-  h2space=width/2+hspace;
-  vspace=hspace;
+  h2space=0;
+  vspace=50;
   tetricide=createFont("tetri.ttf",width/6);
-  defaultFont=createFont("8bitOperatorPlus-Regular.ttf",width/20);
+  defaultFont=createFont("8bitOperatorPlusSC-Regular.ttf",width/25);
   colors[1]=#F786FF;
   colors[2]=#FF86E3;
   colors[3]=#8D86FF;
@@ -51,6 +51,9 @@ void pageSelector(){
 
     case 2:
       gameOver();
+      break;
+    case 3:
+      helpPage();
   }
 }
 void page0(){
@@ -63,14 +66,15 @@ void page0(){
     text(ch,width/2+width/9*(i*2-n+1)/2,height*2/5);
   }
   textFont(defaultFont);
-  text("PRESS ENTER TO START",width/2,height*3/4);
+  text("PRESS ENTER TO START",width/2,height*6/8);
+  text("PRESS H FOR HELP",width/2,height*7/8);
 }
 
 void gamePage(){
   background(colorCanvas);
   myBoard.display();
   myTetro.display();
-  nextTetro.display(width*3/4-width*0.9/6,height/4,2*width*0.9/6);
+  nextTetro.display(width*3/4-width*0.9/6,height/4,2*height*0.9/6);
   if(timeFrame<time||myTetro.ypos<extra-2){
     time=0;
     if (timeFrame<500){timeDiference=0;}
@@ -79,7 +83,8 @@ void gamePage(){
   }
   time+=15;
   textAlign(CENTER,CENTER);
-  text("POINTS="+String.valueOf(points),width*3/4,height*2.5/4);
+  text("POINTS="+String.valueOf(points),width*3/4-hspace/2,height*2.5/4);
+  text("PRESS H FOR HELP",width*3/4,height*6/8);
 }
 
 void gameOver(){
@@ -92,17 +97,38 @@ void gameOver(){
     char a = "GAME".charAt(i);
     char b = "OVER".charAt(i);
     fill(colors[i+1]);
-    text(a,width*3/4+width/8.5*(i*2-n+1)/2,height/3);
+    text(a, width*3/4-h2space/2+width/8.5*(i*2-n+1)/2, height/3);
     fill(colors[i+1+2]);
-    text(b,width*3/4+width/9*(i*2-n+1)/2,height/3+height/7);
+    text(b, width*3/4-h2space/2+width/8.5*(i*2-n+1)/2, height/3+120);
   }
   textFont(defaultFont);
-  text("POINTS="+String.valueOf(points),width*3/4,height*2.5/4);
+  text("POINTS="+String.valueOf(points),width*3/4-h2space/2,height*2.9/4);
   textSize(width/30);
-  text("PRESS ENTER TO PLAY AGAIN",width*3/4,height*3/4);
-
+  text("PRESS ENTER TO PLAY AGAIN",width*3/4-h2space/2,height*3.3/4);
+  text("PRESS H FOR HELP",width*3/4,height*7/8);
 }
 
+void helpPage(){
+  background(0);
+  int dif =height/13;
+  textSize(width/25);
+  text("CONTROLS",width/2,height/4);
+  textSize(width/30);
+  text("<- OR ->",width/3.5,height/4+dif*2);
+  translate(width/3.5,height/4);
+  rotate(PI/2);
+  text("<-",dif*3,0);
+  text("->",dif*4,0);
+  rotate(-PI/2);
+  translate(-width/3.5,-height/4);
+  textAlign(CORNER,CENTER);
+  text("TO MOVE HORIZONTALLY",width/2.5,height/4+dif*2);
+  text("TO ROTATE CLOCKWISE",width/2.5,height/4+dif*3);
+  text("TO GO ALL THE WAY DOWN",width/2.5,height/4+dif*4);
+  textSize(width/25);
+  textAlign(CENTER,CENTER);
+  text("PRESS ENTER TO START",width/2,height*3/4);
+}
 void keyPressed() {//Si se oprime una tecla
   if (keyCode==ENTER && page!=1){
     page++;
@@ -112,6 +138,8 @@ void keyPressed() {//Si se oprime una tecla
     myTetro = new Piece(nextN);
     nextTetro = new Piece(nextN);
     myBoard = new Board(ROWS,COLS);
+  }else if (key=='h'){
+    page=3;
   }
   else if (key == CODED && page==1) {
     if (keyCode == CONTROL){

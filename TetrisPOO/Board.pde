@@ -21,22 +21,22 @@ class Board {
   }
   void display(){
     fill(colorTablero);
-    rect(hspace,vspace,width-hspace-h2space,height-2*vspace);
+    rect(hspace,vspace,width/2-hspace-h2space,height-2*vspace);
     stroke(255-alpha(colorTablero));
     for (int i=0; i<=COLS;i++){
-      line(i*(width-hspace-h2space)/COLS+hspace,vspace,
-           i*( width-hspace-h2space)/COLS+hspace,height-vspace);
+      line(i*(width/2-hspace-h2space)/COLS+hspace,vspace,
+           i*( width/2-hspace-h2space)/COLS+hspace,height-vspace);
     }
     for (int i=0; i<=ROWS;i++){
       line(hspace,i*(height-2*vspace)/ROWS+vspace,
-           width-h2space,i*(height-2*vspace)/ROWS+vspace);
+           width/2-h2space,i*(height-2*vspace)/ROWS+vspace);
     }
     for(int i=extra;i<rows+extra;i++){
       for(int j=0; j<cols;j++){
         if (Tablero[i].charAt(j+1)!='0'){
           fill(colors[ Character.getNumericValue(Tablero[i].charAt(j+1) )]);
-          rect(j*(width-hspace-h2space)/COLS+hspace,(i-extra)*(height-2*vspace)/ROWS+vspace,
-               (width-hspace-h2space)/COLS,(height-2*vspace)/ROWS);
+          rect(j*(width/2-hspace-h2space)/COLS+hspace,(i-extra)*(height-2*vspace)/ROWS+vspace,
+               (width/2-hspace-h2space)/COLS,(height-2*vspace)/ROWS);
         }
       }
     }
