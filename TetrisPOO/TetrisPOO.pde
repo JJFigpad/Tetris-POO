@@ -23,8 +23,8 @@ void setup(){
   hspace=50;
   h2space=width/2;
   vspace=50;
-  tetricide=createFont("tetri.ttf",120);
-  defaultFont=createFont("8bitOperatorPlus-Regular.ttf",120);
+  tetricide=createFont("tetri.ttf",width/6);
+  defaultFont=createFont("8bitOperatorPlus-Regular.ttf",width/20);
   colors[1]=#F786FF;
   colors[2]=#FF86E3;
   colors[3]=#8D86FF;
@@ -60,10 +60,9 @@ void page0(){
   for(int i = 0, n = "TETRIS".length() ; i < n ; i++) {
     char ch = "TETRIS".charAt(i);
     fill(colors[i+1]);
-    text(ch,width/2+80*(i*2-n+1)/2,height/4);
+    text(ch,width/2+width/9*(i*2-n+1)/2,height*2/5);
   }
   textFont(defaultFont);
-  textSize(30);
   text("PRESS ENTER TO START",width/2,height*3/4);
 }
 
@@ -80,28 +79,26 @@ void gamePage(){
   }
   time+=15;
   textAlign(CENTER,CENTER);
-  textSize(30);
   text("POINTS="+String.valueOf(points),width*3/4,height*2.5/4);
 }
 
 void gameOver(){
   background(colorCanvas);
   myBoard.display();
-  textFont(tetricide,100);
+  textFont(tetricide);
   fill(255);
   textAlign(CENTER,CENTER);
   for(int i=0, n=4 ; i<n ; i++) {
     char a = "GAME".charAt(i);
     char b = "OVER".charAt(i);
     fill(colors[i+1]);
-    text(a,width*3/4+70*(i*2-n+1)/2,height/3);
+    text(a,width*3/4+width/9*(i*2-n+1)/2,height/3);
     fill(colors[i+1+2]);
-    text(b,width*3/4+70*(i*2-n+1)/2,height/3+95);
+    text(b,width*3/4+width/9*(i*2-n+1)/2,height/3+height/7);
   }
   textFont(defaultFont);
-  textSize(30);
   text("POINTS="+String.valueOf(points),width*3/4,height*2.5/4);
-  textSize(20);
+  textSize(width/30);
   text("PRESS ENTER TO PLAY AGAIN",width*3/4,height*3/4);
 
 }
@@ -110,6 +107,8 @@ void keyPressed() {//Si se oprime una tecla
   if (keyCode==ENTER && page!=1){
     page++;
     if (page>2){page=1;}
+    points=0;
+    changeNextN=true;
     myTetro = new Piece(nextN);
     nextTetro = new Piece(nextN);
     myBoard = new Board(ROWS,COLS);

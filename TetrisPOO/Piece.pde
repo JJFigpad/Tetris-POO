@@ -107,6 +107,7 @@ class Piece{
       myBoard.newTablero(piece);
       myBoard.print1();
       myTetro= new Piece(nextN);
+      changeNextN=true;
       //piece = new Piece(nextN);
     }
   }
