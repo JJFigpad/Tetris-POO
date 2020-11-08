@@ -1,6 +1,6 @@
 class Piece{
   color c=color(50,100,100);
-  int xpos=0;
+  int xpos=int(random(0,COLS-4-1));
   int ypos=0;
   int n;
   String[]Tetro = new String [4];
@@ -63,8 +63,9 @@ class Piece{
     }
   }
   void display(){
-    if(ypos==extra-1 && changeNextN){
+    if(ypos==extra-2 && changeNextN){
       nextN=int(random(1,8));
+      println("changeNextN:",nextN);
       nextTetro= new Piece(nextN);
       changeNextN=false;
     }
@@ -105,7 +106,7 @@ class Piece{
       ypos +=1;
     }else{
       myBoard.newTablero(piece);
-      myBoard.print1();
+      //myBoard.print1();
       myTetro= new Piece(nextN);
       changeNextN=true;
       //piece = new Piece(nextN);

@@ -115,15 +115,13 @@ class Board {
   String[] deleteRow(int j){
     String[] a=new String[rows+extra+1];
     int counter=1;//counter<rows+extra+1
-    println("j=",j);
+    println("delete row ",j);
     for (int i=1;i<rows+extra+1;i++){
-      println(i,rows+extra-i,counter,rows+extra-counter);
       if(rows+extra-counter==j){counter++;}
       if(counter>=rows+extra+1){continue;}
       else{
         a[rows+extra-i]=Tablero[rows+extra-counter];
       }
-      println(i,rows+extra-i,counter,rows+extra-counter);
       counter++;
     }
 

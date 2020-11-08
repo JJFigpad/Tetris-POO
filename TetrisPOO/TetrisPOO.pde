@@ -11,7 +11,7 @@ int points=0;
 int difPoints=100;
 int time=0, timeFrame=600,timeDiference=1;
 int extra=4;
-int COLS=10,ROWS=15;
+int COLS=10,ROWS=16;
 int page=0;
 int hspace, h2space, vspace;
 color colorTablero=0, colorCanvas=0;
@@ -19,10 +19,10 @@ color[] colors=new color[8];
 
 
 void setup(){
-  size(800,800);
+  size(600,800);
   hspace=50;
-  h2space=width/2;
-  vspace=50;
+  h2space=width/2+hspace;
+  vspace=hspace;
   tetricide=createFont("tetri.ttf",width/6);
   defaultFont=createFont("8bitOperatorPlus-Regular.ttf",width/20);
   colors[1]=#F786FF;
@@ -71,7 +71,7 @@ void gamePage(){
   myBoard.display();
   myTetro.display();
   nextTetro.display(width*3/4-width*0.9/6,height/4,2*width*0.9/6);
-  if(timeFrame<time){
+  if(timeFrame<time||myTetro.ypos<extra-2){
     time=0;
     if (timeFrame<500){timeDiference=0;}
     timeFrame-=timeDiference;
@@ -92,7 +92,7 @@ void gameOver(){
     char a = "GAME".charAt(i);
     char b = "OVER".charAt(i);
     fill(colors[i+1]);
-    text(a,width*3/4+width/9*(i*2-n+1)/2,height/3);
+    text(a,width*3/4+width/8.5*(i*2-n+1)/2,height/3);
     fill(colors[i+1+2]);
     text(b,width*3/4+width/9*(i*2-n+1)/2,height/3+height/7);
   }
@@ -113,7 +113,7 @@ void keyPressed() {//Si se oprime una tecla
     nextTetro = new Piece(nextN);
     myBoard = new Board(ROWS,COLS);
   }
-  else if (key == CODED) {
+  else if (key == CODED && page==1) {
     if (keyCode == CONTROL){
       noLoop();
     }else if (keyCode == ALT){
@@ -121,8 +121,10 @@ void keyPressed() {//Si se oprime una tecla
     }if (keyCode == UP) {//Si la tecla es la flecha superior
       myTetro.rotate(myTetro);
     } else if (keyCode == DOWN) {//Si la flecha es la flecha inferior
-      while(myBoard.collisionMove(myTetro,0,1)==false){
-        myTetro.fall(myTetro,myBoard);
+      if(myTetro.ypos>=extra-2){
+        while(myBoard.collisionMove(myTetro,0,1)==false){
+          myTetro.fall(myTetro,myBoard);
+        }
       }
     }else if (keyCode == RIGHT) {//Si la flecha es la flecha a la derecha
       myTetro.move(myTetro,myBoard,1,0);
