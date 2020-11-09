@@ -1,31 +1,31 @@
 import java.util.Arrays;
 
 //Driver
-Piece myTetro;
-Board myBoard;
-Piece nextTetro;
+Piece myTetro;//Tetromino
+Board myBoard;//Tablero
+Piece nextTetro;//Siguiente tetromino
 PFont tetricide, defaultFont;
-boolean changeNextN= true;
-int nextN=int(random(1,8));
+boolean changeNextN= true;//Cambiar siguiente tetromino?
+int nextN=int(random(1,8));//Tipo de tetromino del siguiente tetromino
 int points=0;
 int difPoints=100;
-int time=0, timeFrame=600,timeDiference=10;
-int extra=4;
-int COLS=10,ROWS=16;
-int page=0;
-int hspace, h2space, vspace;
-color colorTablero=0, colorCanvas=0;
-color[] colors=new color[8];
+int time=0, timeFrame=400,timeDiference=10;//Tiempo, velocidad y aceleración
+int extra=4;//Número de filas superiores del tablero(donde se crean los Tetrominos)
+int COLS=10,ROWS=16;//Número de columnas y filas visibles del tablero
+int page=0;//Página
+int hspace, h2space, vspace;//Márgenes
+color colorTablero=0, colorCanvas=0;//Colores tablero y canvas
+color[] colors=new color[8];//Colores tetrominos
 
 
 void setup(){
   size(800,600);
-  hspace=50;
+  hspace=50;//Márgenes
   h2space=0;
   vspace=50;
   tetricide=createFont("tetri.ttf",width/6);
   defaultFont=createFont("8bitOperatorPlusSC-Regular.ttf",width/25);
-  colors[1]=#F786FF;
+  colors[1]=#F786FF;//Colores tetrominos
   colors[2]=#FF86E3;
   colors[3]=#8D86FF;
   colors[4]=#86FCFF;
@@ -39,7 +39,7 @@ void draw(){
   pageSelector();
 }
 
-void pageSelector(){
+void pageSelector(){//Escoge la página
   switch(page) {
     case 0:
       page0();
@@ -56,10 +56,10 @@ void pageSelector(){
       helpPage();
   }
 }
-void page0(){
+void page0(){//Página 0 (solo texto)
   background(0);
   textAlign(CENTER);
-  textFont(tetricide);
+  textFont(tetricide);//texto...
   for(int i = 0, n = "TETRIS".length() ; i < n ; i++) {
     char ch = "TETRIS".charAt(i);
     fill(colors[i+1]);
@@ -70,25 +70,33 @@ void page0(){
   text("PRESS H FOR HELP",width/2,height*7/8);
 }
 
-void gamePage(){
+void gamePage(){//Página del juego
   background(colorCanvas);
-  myBoard.display();
-  myTetro.display();
+  myBoard.display();//Dibuja el tablero
+  myTetro.display();//Dibuja el Tetromino actual
+  //Dibuja próximo tetromino
   nextTetro.display(width*3/4-width*0.9/6,height/4,2*height*0.9/6);
-  if(timeFrame<time||myTetro.ypos<extra-2){
+  if(timeFrame<time||myTetro.ypos<extra-2){//Controla la caída del tetromino
     time=0;
-    myTetro.fall(myTetro,myBoard);
+    if (myBoard.collisionMove(myTetro,0,1)==false){
+      myTetro.move(0,1);
+    }else{
+      myBoard.newTablero(myTetro);
+      myBoard.print1();
+      myTetro= new Piece(nextN);
+      changeNextN=true;
+    }
   }
   time+=15;
-  textAlign(CENTER,CENTER);
+  textAlign(CENTER,CENTER);//texto...
   text("POINTS="+String.valueOf(points),width*3/4-hspace/2,height*2.5/4);
   text("PRESS H FOR HELP",width*3/4,height*6/8);
 }
 
-void gameOver(){
+void gameOver(){//Se termina el juego
   background(colorCanvas);
-  myBoard.display();
-  textFont(tetricide);
+  myBoard.display();//Dibuja el tablero
+  textFont(tetricide);//texto...
   fill(255);
   textAlign(CENTER,CENTER);
   for(int i=0, n=4 ; i<n ; i++) {
@@ -106,11 +114,11 @@ void gameOver(){
   text("PRESS H FOR HELP",width*3/4,height*7/8);
 }
 
-void helpPage(){
+void helpPage(){//Página de ayuda
   background(0);
-  float dif= height/20;
-  float start=height/7;
-  text("OBJECTIVE",width/2,start-dif/2);
+  float dif= height/20;//Diferencia de altura del texto
+  float start=height/7;//Donde comienza el texto
+  text("OBJECTIVE",width/2,start-dif/2);//Texto...
   textSize(width/55);
   String a= "The goal of Tetris is to score as many points as possible by clearing horizontal lines of Blocks.";
   text(a,width/2,start+dif);
@@ -147,34 +155,41 @@ void helpPage(){
   text("PRESS ENTER TO START",width/2,start+dif*7);
 }
 void keyPressed() {//Si se oprime una tecla
-  if (keyCode==ENTER && page!=1){
-    page++;
+  if (keyCode==ENTER && page!=1){//si ENTER y si no se está jugando
+    page++;//aumentar página
     if (page>2){page=1;}
-    points=0;
+    points=0;//Reiniciar el juego
     changeNextN=true;
     myTetro = new Piece(nextN);
     nextTetro = new Piece(nextN);
     myBoard = new Board(ROWS,COLS);
-  }else if (key=='h'){
+  }else if (key=='h'){//si h,Página de ayuda
     page=3;
   }
   else if (key == CODED && page==1) {
     if (keyCode == CONTROL){
-      noLoop();
+      noLoop();//Para el juego
     }else if (keyCode == ALT){
-      loop();
-    }if (keyCode == UP) {//Si la tecla es la flecha superior
-      myTetro.rotate(myTetro);
-    } else if (keyCode == DOWN) {//Si la flecha es la flecha inferior
-      if(myTetro.ypos>=extra-2){
+      loop();//Continua el juego
+    }if (keyCode == UP) {
+      if(myBoard.collisionRotate(myTetro)==false){//Si no hay colisión
+        myTetro.rotate();//Rotar tetromino
+      }
+    } else if (keyCode == DOWN) {
+      if(myTetro.ypos>=extra-2){//Bajar tetromino hasta el fondo
         while(myBoard.collisionMove(myTetro,0,1)==false){
-          myTetro.fall(myTetro,myBoard);
+          myTetro.move(0,1);
         }
       }
-    }else if (keyCode == RIGHT) {//Si la flecha es la flecha a la derecha
-      myTetro.move(myTetro,myBoard,1,0);
-    }else if (keyCode == LEFT) {//Si la flecha es la flecha a la derecha
-      myTetro.move(myTetro,myBoard,-1,0);
-    }
+    }else if (keyCode == RIGHT) {
+      if (myBoard.collisionMove(myTetro,1,0)==false){
+        myTetro.move(1,0);//Mover tetromino hacia la derecha
+      }
+    }else if (keyCode == LEFT) {
+      if (myBoard.collisionMove(myTetro,1,0)==false){
+        myTetro.move(-1,0);//Mover tetromino hacia la izquierda
+      }
+
+  }
   }
 }
