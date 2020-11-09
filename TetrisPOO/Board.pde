@@ -35,9 +35,11 @@ class Board {
     for(int i=0;i<rows+extra;i++){
       for(int j=0; j<cols;j++){
         if (Tablero[i].charAt(j+1)!='0'){
-          if(i<extra){//Si está por encima de la altura, gameOver()
-            page=2;
-            print("Game Over, altura máxima");
+          if(i<extra){//Si está por encima de la altura, se termina el juego
+            if (page==1){
+              println("Game Over, altura máxima");
+              page=2;
+            }
             continue;
           }
           fill(colors[ Character.getNumericValue(Tablero[i].charAt(j+1) )]);//Colorea cada bloque del color que es
@@ -72,24 +74,24 @@ class Board {
       for(int j=0;j<4;j++){
         if (piece.Tetro[4-1-i].charAt(4-1-j)!='0'){//Si bloque tetromino !=0
           if(Tablero[i+piece.ypos].charAt(j+piece.xpos+1)!='0'){//Si bloque tablero !=0
-            return true;//Entonces sí 
+            return true;//Entonces sí
           }
         }
       }
     }
     return false;//Si no, false
   }
-    
+
   //Añade la un tetromino piece al tablero
   void newTablero(Piece piece){
-    print("newTablero");
+    println("newTablero");
     char[] a;
     StringBuilder b;
     for(int i=0;i<4 && i+piece.ypos<rows+extra;i++){
       a=Tablero[i+piece.ypos].toCharArray();//Copia la fila del tablero
       for(int j=0;j<4;j++){
         if (piece.Tetro[j].charAt(i)!='0'){//Añade la información del tetromino
-          if(a[j+piece.xpos+1]!='0'){print("Error");gameOver();}
+          if(a[j+piece.xpos+1]!='0'){println("Error");gameOver();}
           a[j+piece.xpos+1]=char(piece.n+'0');
         }
       }
@@ -103,7 +105,7 @@ class Board {
         Tablero=deleteRow(j);//Eliminarla
         counterRows++;
       }
-    }//Si hubo filas completas, aumentar puntaje 
+    }//Si hubo filas completas, aumentar puntaje
     if (counterRows!=0){points+=difPoints*pow(10,counterRows);}
     //Aumentar velocidad de bajada
     if (timeFrame>300){timeFrame-=timeDiference;}
@@ -121,7 +123,7 @@ class Board {
   String[] deleteRow(int j){
     String[] a=new String[rows+extra+1];//Nuevo tablero que se va a devolver
     int counter=1;
-    println("delete row",j);
+    println("Delete row",j);
     for (int i=1;i<rows+1+extra;i++){
       if(rows+extra-counter==j){counter++;}//No añadir fila j
       if(counter>=rows+extra+1){continue;}//Contador está por fuera de rango
