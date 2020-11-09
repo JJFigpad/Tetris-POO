@@ -1,6 +1,11 @@
+/*
+Juego de TETRIS en POO, leer el README.
+Código por U-dot, hecho en Noviembre del 2020.
+*/
+
 import java.util.Arrays;
 
-//Driver
+//Driver code
 Piece myTetro;//Tetromino
 Board myBoard;//Tablero
 Piece nextTetro;//Siguiente tetromino
