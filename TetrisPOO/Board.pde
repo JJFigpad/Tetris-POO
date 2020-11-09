@@ -35,7 +35,11 @@ class Board {
     for(int i=0;i<rows+extra;i++){
       for(int j=0; j<cols;j++){
         if (Tablero[i].charAt(j+1)!='0'){
-          if(i<extra){page=2;continue;}//Si está por encima de la altura, gameOver()
+          if(i<extra){//Si está por encima de la altura, gameOver()
+            page=2;
+            print("Game Over, altura máxima");
+            continue;
+          }
           fill(colors[ Character.getNumericValue(Tablero[i].charAt(j+1) )]);//Colorea cada bloque del color que es
           rect(j*(width/2-hspace-h2space)/COLS+hspace,(i-extra)*(height-2*vspace)/ROWS+vspace,
                (width/2-hspace-h2space)/COLS,(height-2*vspace)/ROWS);//Dibuja bloque
@@ -78,6 +82,7 @@ class Board {
     
   //Añade la un tetromino piece al tablero
   void newTablero(Piece piece){
+    print("newTablero");
     char[] a;
     StringBuilder b;
     for(int i=0;i<4 && i+piece.ypos<rows+extra;i++){

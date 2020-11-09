@@ -7,8 +7,8 @@ Piece nextTetro;//Siguiente tetromino
 PFont tetricide, defaultFont;
 boolean changeNextN= true;//Cambiar siguiente tetromino?
 int nextN=int(random(1,8));//Tipo de tetromino del siguiente tetromino
-int points=0;
-int difPoints=100;
+int points=0, difPoints=100;
+boolean countingTime=true;
 int time=0, timeFrame=400,timeDiference=10;//Tiempo, velocidad y aceleración
 int extra=4;//Número de filas superiores del tablero(donde se crean los Tetrominos)
 int COLS=10,ROWS=16;//Número de columnas y filas visibles del tablero
@@ -76,13 +76,13 @@ void gamePage(){//Página del juego
   myTetro.display();//Dibuja el Tetromino actual
   //Dibuja próximo tetromino
   nextTetro.display(width*3/4-width*0.9/6,height/4,2*height*0.9/6);
-  if(timeFrame<time||myTetro.ypos<extra-2){//Controla la caída del tetromino
-    time=0;
+  if((timeFrame<time||myTetro.ypos<extra-2)&& countingTime){
+    time=0;//Controla la caída del tetromino
     if (myBoard.collisionMove(myTetro,0,1)==false){
       myTetro.move(0,1);
     }else{
       myBoard.newTablero(myTetro);
-      myBoard.print1();
+      //myBoard.print1();
       myTetro= new Piece(nextN);
       changeNextN=true;
     }
@@ -156,21 +156,24 @@ void helpPage(){//Página de ayuda
 }
 void keyPressed() {//Si se oprime una tecla
   if (keyCode==ENTER && page!=1){//si ENTER y si no se está jugando
+    println("Leaving page", page);
+    if (page==2||page==0){
+      points=0;//Reiniciar el juego
+      changeNextN=true;
+      myTetro = new Piece(nextN);
+      nextTetro = new Piece(nextN);
+      myBoard = new Board(ROWS,COLS);
+    }
     page++;//aumentar página
     if (page>2){page=1;}
-    points=0;//Reiniciar el juego
-    changeNextN=true;
-    myTetro = new Piece(nextN);
-    nextTetro = new Piece(nextN);
-    myBoard = new Board(ROWS,COLS);
   }else if (key=='h'){//si h,Página de ayuda
     page=3;
   }
   else if (key == CODED && page==1) {
     if (keyCode == CONTROL){
-      noLoop();//Para el juego
+      countingTime=false;//Para el juego
     }else if (keyCode == ALT){
-      loop();//Continua el juego
+      countingTime=true;//Continua el juego
     }if (keyCode == UP) {
       if(myBoard.collisionRotate(myTetro)==false){//Si no hay colisión
         myTetro.rotate();//Rotar tetromino
@@ -186,7 +189,7 @@ void keyPressed() {//Si se oprime una tecla
         myTetro.move(1,0);//Mover tetromino hacia la derecha
       }
     }else if (keyCode == LEFT) {
-      if (myBoard.collisionMove(myTetro,1,0)==false){
+      if (myBoard.collisionMove(myTetro,-1,0)==false){
         myTetro.move(-1,0);//Mover tetromino hacia la izquierda
       }
 
