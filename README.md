@@ -27,10 +27,7 @@
   Los tetrominos caen hasta el fondo.
 
   #### ctrl
-  El juego para.
-
-  #### alt
-  El juego continua.
+  El juego para o continua.
 
   ## Representación
   Este juego representa el tablero y los Tetrominos mediante las clases Board y Piece, respectivamente.

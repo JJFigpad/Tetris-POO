@@ -32,7 +32,10 @@ void setup(){
   colors[5]=#86FFAB;
   colors[6]=#E2FF86;
   colors[7]=#FFCB86;
-
+  changeNextN=true;
+  myTetro = new Piece(nextN);
+  nextTetro = new Piece(nextN);
+  myBoard = new Board(ROWS,COLS);
 }
 
 void draw(){
@@ -143,13 +146,11 @@ void helpPage(){//Página de ayuda
   rotate(-PI/2);
   translate(-width/3.5,-start);
   text("CTRL",width/3.5,start+dif*4);
-  text("ALT",width/3.5,start+dif*5);
   textAlign(CORNER,CENTER);
   text("TO MOVE HORIZONTALLY",width/2.5,start+dif);
   text("TO ROTATE CLOCKWISE",width/2.5,start+dif*2);
   text("TO GO ALL THE WAY DOWN",width/2.5,start+dif*3);
-  text("TO STOP",width/2.5,start+dif*4);
-  text("TO CONTINUE",width/2.5,start+dif*5);
+  text("TO STOP OR CONTINUE",width/2.5,start+dif*4);
   textSize(width/25);
   textAlign(CENTER,CENTER);
   text("PRESS ENTER TO START",width/2,start+dif*7);
@@ -171,10 +172,9 @@ void keyPressed() {//Si se oprime una tecla
   }
   else if (key == CODED && page==1) {
     if (keyCode == CONTROL){
-      countingTime=false;//Para el juego
-    }else if (keyCode == ALT){
-      countingTime=true;//Continua el juego
-    }if (keyCode == UP) {
+      if(countingTime){countingTime=false;}//Para el juego
+      else{countingTime=true;}//Continua el juego
+    }else if (keyCode== UP){
       if(myBoard.collisionRotate(myTetro)==false){//Si no hay colisión
         myTetro.rotate();//Rotar tetromino
       }
